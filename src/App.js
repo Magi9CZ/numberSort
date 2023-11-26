@@ -45,6 +45,10 @@ const NumberSequence = (props) => {
     setNumbers([...initialNumbers].sort(() => Math.random() - 0.5));
   }, []);
 
+  useEffect(() => {
+      handleState();
+  }, [numbers, 1]);
+
   const moveNumber = (fromIndex, toIndex) => {
     const updatedNumbers = [...numbers];
     const [movedNumber] = updatedNumbers.splice(fromIndex, 1);
@@ -65,7 +69,13 @@ const NumberSequence = (props) => {
   };
 
   function answer(){
+      console.log("funkce answer app: " + numbers);
       props.odpoved(numbers);
+  }
+
+  function handleState() {
+      console.log("změna");
+      props.onChange({initial: initialNumbers, userNumbers: numbers});
   }
 
   if (props.play == true) {
@@ -86,7 +96,6 @@ const NumberSequence = (props) => {
   } else if (props.play == false){
       return (
           <div style={{padding: '20px'}}>
-              <h2>Upravujte číselnou řadu</h2>
               <h3>Vaše odpověď</h3>
               <div style={containerStyle}>
                   {props.restoreData.map((number, index) => (
@@ -104,9 +113,15 @@ const App = (props) => {
         props.odpoved(numbers);
     }
 
+    function handleState(e) {
+        props.checkState(e);
+        console.log("mezistav init: " + e.initial);
+        console.log("mezistav current: " + e.userNumbers);
+    }
+
   return (
       <DndProvider backend={HTML5Backend}>
-        <NumberSequence data={props.data} restoreData={props.saved} odpoved={appAnswer} play={props.readOnly}/>
+        <NumberSequence data={props.data} restoreData={props.saved} odpoved={appAnswer} play={props.readOnly} onChange={handleState}/>
       </DndProvider>
   );
 };

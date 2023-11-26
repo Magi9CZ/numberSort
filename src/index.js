@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 function Question_numberSort() {
 
     let playable = true;
+    let initialLine;
 
     Question_numberSort.prototype.init = function (questionKey, location, config) {
         this.questionKey = questionKey;
@@ -22,10 +23,15 @@ function Question_numberSort() {
         console.log(config);
         root.render(
             <React.StrictMode>
-                <App data={config} odpoved={Question_numberSort.prototype.answer} readOnly={playable}/>
+                <App data={config} odpoved={saveAnswer} readOnly={playable} checkState={stavHry}/>
             </React.StrictMode>
         );
     };
+
+    function stavHry(e) {
+        numbers = e.userNumbers;
+        initialLine = e.initial;
+    }
 
 
     Question_numberSort.prototype.onlyShowInit = function (questionKey, location, config) {
@@ -36,23 +42,31 @@ function Question_numberSort() {
 
         var self = this;
 
-
-
         //init save & cancel answer handlers pro tlačítka
         const root = ReactDOM.createRoot(document.getElementById('root'));
         console.log(config);
         root.render(
             <React.StrictMode>
-                <App data={config} readOnly={playable} saved={numbersAnswer}/>
+                <App data={config} readOnly={playable} saved={numbers} checkState={stavHry}/>
             </React.StrictMode>
         );
     };
 
-    let numbersAnswer = {};
+    let numbers = {};
 
-    Question_numberSort.prototype.answer = function (odp) {
-        numbersAnswer = odp;
-        console.log(numbersAnswer);
+    function saveAnswer(odp) {
+        numbers = odp;
+        checkAnswer();
+    }
+
+    function checkAnswer() {
+        console.log("finalni: " + numbers);
+    }
+
+    Question_numberSort.prototype.answer = function () {
+        const odpoved = {numbers};
+        return odpoved;
+
     };
 
     /**
@@ -60,7 +74,8 @@ function Question_numberSort() {
      * @returns {string}
      */
     Question_numberSort.prototype.recoveryData = function () {
-
+        const stav = {initialLine, numbers}
+        return stav;
     };
 
     /**
@@ -68,7 +83,12 @@ function Question_numberSort() {
      * @param data
      */
     Question_numberSort.prototype.restore = function (data) {
-
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(
+            <React.StrictMode>
+                <App data={data} readOnly={playable} saved={numbers} checkState={stavHry}/>
+            </React.StrictMode>
+        );
     };
 }
 export default Question_numberSort;
