@@ -43,7 +43,7 @@ const NumberSequence = (props) => {
   useEffect(() => {
     // Při prvním renderu přiřaďte náhodné zpřeházení čísel
     setNumbers([...initialNumbers].sort(() => Math.random() - 0.5));
-  }, []);
+  }, [initialNumbers]);
 
   useEffect(() => {
       handleState();
