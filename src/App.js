@@ -93,7 +93,7 @@ const NumberSequence = (props) => {
               {!isSequenceCorrect && <p>Číselná řada není správná. Opravte ji a zkuste znovu.</p>}
           </div>
       );
-  } else if (props.play == false){
+  } else if (props.play === false){
       return (
           <div style={{padding: '20px'}}>
               <h3>Vaše odpověď</h3>

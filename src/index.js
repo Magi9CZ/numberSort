@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 function Question_numberSort() {
 
     let playable = true;
     let initialLine;
+    let numbers = {};
+    let savedNumbers = {}
 
     Question_numberSort.prototype.init = function (questionKey, location, config) {
         this.questionKey = questionKey;
@@ -45,6 +46,7 @@ function Question_numberSort() {
         //init save & cancel answer handlers pro tlačítka
         const root = ReactDOM.createRoot(document.getElementById('root'));
         console.log(config);
+        console.log(numbers);
         root.render(
             <React.StrictMode>
                 <App data={config} readOnly={playable} saved={numbers} checkState={stavHry}/>
@@ -52,7 +54,6 @@ function Question_numberSort() {
         );
     };
 
-    let numbers = {};
 
     function saveAnswer(odp) {
         numbers = odp;
@@ -64,6 +65,7 @@ function Question_numberSort() {
     }
 
     Question_numberSort.prototype.answer = function () {
+        savedNumbers = numbers;
         const odpoved = {numbers};
         return odpoved;
 
@@ -86,7 +88,7 @@ function Question_numberSort() {
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(
             <React.StrictMode>
-                <App data={data} readOnly={playable} saved={numbers} checkState={stavHry}/>
+                <App data={data} readOnly={playable} saved={savedNumbers} checkState={stavHry}/>
             </React.StrictMode>
         );
     };
