@@ -8,7 +8,7 @@ module.exports = {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
         library: {
-            name: "Question_numberSort",
+            name: "Question_numberSortJiranek",
             type: "umd",
             export: "default",
         },

@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-function Question_numberSort() {
+function Question_numberSortJiranek() {
 
     let playable = true;
     let initialLine;
     let numbers = {};
     let savedNumbers = {}
 
-    Question_numberSort.prototype.init = function (questionKey, location, config) {
+    Question_numberSortJiranek.prototype.init = function (questionKey, location, config) {
         this.questionKey = questionKey;
         this.location = location;
         this.config = config;
@@ -35,7 +35,7 @@ function Question_numberSort() {
     }
 
 
-    Question_numberSort.prototype.onlyShowInit = function (questionKey, location, config) {
+    Question_numberSortJiranek.prototype.onlyShowInit = function (questionKey, location, config) {
         this.questionKey = questionKey;
         this.location = location;
         this.config = config;
@@ -64,7 +64,7 @@ function Question_numberSort() {
         console.log("finalni: " + numbers);
     }
 
-    Question_numberSort.prototype.answer = function () {
+    Question_numberSortJiranek.prototype.answer = function () {
         savedNumbers = numbers;
         const odpoved = {numbers};
         return odpoved;
@@ -75,7 +75,7 @@ function Question_numberSort() {
      * Returns data for recovery
      * @returns {string}
      */
-    Question_numberSort.prototype.recoveryData = function () {
+    Question_numberSortJiranek.prototype.recoveryData = function () {
         const stav = {initialLine, numbers}
         return stav;
     };
@@ -84,7 +84,7 @@ function Question_numberSort() {
      * Restore application and disable moving
      * @param data
      */
-    Question_numberSort.prototype.restore = function (data) {
+    Question_numberSortJiranek.prototype.restore = function (data) {
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(
             <React.StrictMode>
@@ -93,4 +93,4 @@ function Question_numberSort() {
         );
     };
 }
-export default Question_numberSort;
+export default Question_numberSortJiranek;
